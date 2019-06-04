@@ -35,10 +35,14 @@
 #include "commands/GetPIDVelocity.h"
 #include "commands/IRCamSimplePacketComsServer.h"
 #include "commands/GetIMU.h"
+#if defined(USE_GAME_CONTROL)
+#include <WiiChuck.h>
+#include "YodaControl.h"
+#endif
 
 
 enum state_t {
-	Startup, WaitForConnect, run,readIMU, readIR
+	Startup, WaitForConnect, run,readIMU, readIR,readGame
 // Add more states here and be sure to add them to the cycle
 };
 #define numberOfPID  3
@@ -81,7 +85,9 @@ private:
 	GetIMU * sensor;
 
 	IRCamSimplePacketComsServer * serverIR;
-
+#if defined(USE_GAME_CONTROL)
+	YodaControl * yoda;
+#endif
 
 public:
 	/**

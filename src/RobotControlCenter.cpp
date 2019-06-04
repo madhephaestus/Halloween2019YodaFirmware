@@ -6,6 +6,9 @@
  */
 
 #include "RobotControlCenter.h"
+#if defined(USE_GAME_CONTROL)
+Accessory game;
+#endif
 #if defined(USE_IMU)
 // Simple packet coms server for IMU
 // The IMU object
@@ -39,14 +42,19 @@ void RobotControlCenter::loop() {
 				state = readIR; // begin the main operation loop
 			break;
 		case readIR:
-			state = readIMU;
+			state = readGame;
 #if defined(USE_IR_CAM)
 			serverIR->loop();
 			//serverIR->print();
 #endif
 			break;
+		case readGame:
+#if defined(USE_GAME_CONTROL)
+			game.readData();
+#endif
+			state = readIMU;
+			break;
 		case readIMU:
-
 #if defined(USE_IMU)
 			if (sensor->loop()) {
 				state = readIR;
@@ -86,6 +94,7 @@ void RobotControlCenter::setup() {
 	Serial.begin(115200);
 #endif
 
+
 	motor1.attach(MOTOR1_PWM, MOTOR1_DIR, MOTOR1_ENCA, MOTOR1_ENCB);
 	motor2.attach(MOTOR2_PWM, MOTOR2_DIR, MOTOR2_ENCA, MOTOR2_ENCB);
 	motor3.attach(MOTOR3_PWM, MOTOR3_DIR, MOTOR3_ENCA, MOTOR3_ENCB);
@@ -119,9 +128,13 @@ void RobotControlCenter::setup() {
 	myDFRobotIRPosition.begin();
 	serverIR = new IRCamSimplePacketComsServer(&myDFRobotIRPosition);
 #endif
+	#if defined(USE_GAME_CONTROL)
+	game.begin();
+	#endif
 
 	robot = new StudentsRobot(&motor1, &motor2, &motor3, &servo, serverIR,
 			sensor);
+	yoda= new YodaControl(robot,&game);
 
 #if defined(USE_WIFI)
 #if defined(USE_IMU)
@@ -159,5 +172,5 @@ void RobotControlCenter::fastLoop() {
 	}
 #endif
 	robot->updateStateMachine();
-
+	yoda->loop();
 }
