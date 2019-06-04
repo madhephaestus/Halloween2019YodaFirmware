@@ -8,7 +8,8 @@
 #include "YodaControl.h"
 
 #if defined(USE_GAME_CONTROL)
-static float mapf(float x, float in_min, float in_max, float out_min, float out_max) {
+static float mapf(float x, float in_min, float in_max, float out_min,
+		float out_max) {
 	return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 YodaControl::YodaControl(PIDMotor * motor1, PIDMotor * motor2,
@@ -21,7 +22,7 @@ YodaControl::YodaControl(PIDMotor * motor1, PIDMotor * motor2,
 	eyetilt.attach(TILT_PIN);
 	// Create a module to deal with the demo wrist bevel gears
 	wristPtr = new GearWrist(motor1, //right motor
-		motor2, // left motor
+			motor2, // left motor
 			16.0 * // Encoder CPR
 					50.0 * // Motor Gear box ratio
 					2.5347 * // Wrist gear stage ratio
@@ -34,14 +35,18 @@ YodaControl::~YodaControl() {
 	// TODO Auto-generated destructor stub
 }
 void YodaControl::loop() {
-	if (lastTime > millis() - 20) {
+	if (lastTime+ 20 < millis() ) {
 		lastTime = millis();
 	} else
 		return;
-	for (int i = 0; i < WII_VALUES_ARRAY_SIZE; i++) {
-		Serial.println(
-				"Controller Val " + String(i) + " = "
-						+ String((uint8_t) game->values[i]));
+	if (lastPrint+500 < millis()) {
+		lastPrint = millis();
+		Serial.println("");
+		for (int i = 0; i < WII_VALUES_ARRAY_SIZE; i++) {
+			Serial.println(
+					"Controller Val " + String(i) + " = "
+							+ String((uint8_t) game->values[i]));
+		}
 	}
 	float Servo1Val = mapf((float) game->values[1], 0.0, 255.0, -15.0, 15.0);
 	float Servo3Val = mapf((float) game->values[0], 0.0, 255.0, -60.0, 60.0); // z button

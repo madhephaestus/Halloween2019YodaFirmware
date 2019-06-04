@@ -25,6 +25,7 @@ class YodaControl {
 	Servo eyepan;
 	Servo eyetilt;
 	long lastTime=0;
+	long lastPrint=0;
 	GearWrist * wristPtr;
 public:
 	YodaControl(PIDMotor * motor1,
