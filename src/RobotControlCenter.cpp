@@ -134,7 +134,7 @@ void RobotControlCenter::setup() {
 
 	robot = new StudentsRobot(&motor1, &motor2, &motor3, &servo, serverIR,
 			sensor);
-	yoda= new YodaControl(robot,&game);
+	yoda= new YodaControl(&motor1, &motor2,&game);
 
 #if defined(USE_WIFI)
 #if defined(USE_IMU)
