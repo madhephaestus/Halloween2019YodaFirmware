@@ -7,7 +7,7 @@
 
 #ifndef SRC_GEARWRIST_H_
 #define SRC_GEARWRIST_H_
-#include "PIDMotor.h"
+#include "pid/PIDMotor.h"
 class GearWrist {
 private:
 	PIDMotor * left;

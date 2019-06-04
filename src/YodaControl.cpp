@@ -20,8 +20,8 @@ YodaControl::YodaControl(PIDMotor * motor1, PIDMotor * motor2,
 	eyepan.attach(PAN_PIN);
 	eyetilt.attach(TILT_PIN);
 	// Create a module to deal with the demo wrist bevel gears
-	wristPtr = new GearWrist(&motor1, //right motor
-			&motor2, // left motor
+	wristPtr = new GearWrist(motor1, //right motor
+		motor2, // left motor
 			16.0 * // Encoder CPR
 					50.0 * // Motor Gear box ratio
 					2.5347 * // Wrist gear stage ratio
