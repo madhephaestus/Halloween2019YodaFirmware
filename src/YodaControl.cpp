@@ -39,7 +39,7 @@ void YodaControl::loop() {
 		lastTime = millis();
 	} else
 		return;
-	if (lastPrint+500 < millis()) {
+	if (lastPrint+200 < millis()) {
 		lastPrint = millis();
 		Serial.println("");
 		for (int i = 0; i < WII_VALUES_ARRAY_SIZE; i++) {
@@ -51,7 +51,7 @@ void YodaControl::loop() {
 	float Servo1Val = mapf((float) game->values[1], 0.0, 255.0, -15.0, 15.0);
 	float Servo3Val = mapf((float) game->values[0], 0.0, 255.0, -60.0, 60.0); // z button
 	int panVal = map(game->values[2], 0, 255, 35, 148);
-	int jawVal = map(game->values[5] > 0 ? 0 : // Upper button pressed
+	int jawVal = map(game->values[17] > 0 ? 1 : // Upper button pressed
 			(game->values[18] > 0 ? 255 : // Lower button pressed
 					128) //neither pressed
 			, 0, 255, 80, 140);

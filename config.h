@@ -10,7 +10,7 @@
 
 #define TEAM_NAME "IMU-Team0"
 
-//#define USE_WIFI
+#define USE_WIFI
 //#define USE_IR_CAM
 //#define USE_IMU
 #define USE_GAME_CONTROL
