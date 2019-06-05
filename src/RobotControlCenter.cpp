@@ -134,8 +134,9 @@ void RobotControlCenter::setup() {
 
 	robot = new StudentsRobot(&motor1, &motor2, &motor3, &servo, serverIR,
 			sensor);
+#if defined(USE_GAME_CONTROL)
 	yoda= new YodaControl(&motor1, &motor2,&game);
-
+#endif
 #if defined(USE_WIFI)
 #if defined(USE_IMU)
 	coms.attach(sensor);
@@ -172,5 +173,7 @@ void RobotControlCenter::fastLoop() {
 	}
 #endif
 	robot->updateStateMachine();
+#if defined(USE_GAME_CONTROL)
 	yoda->loop();
+#endif
 }
