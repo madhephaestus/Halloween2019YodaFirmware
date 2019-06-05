@@ -28,8 +28,8 @@ StudentsRobot::StudentsRobot(PIDMotor * motor1, PIDMotor * motor2,
 	motor3->myPID.sampleRateMs = 5;  // 10khz H-Bridge, 0.1ms update, 1 ms PID
 
 	// Set default P.I.D gains
-	motor1->myPID.setpid(0.00015, 0, 0);
-	motor2->myPID.setpid(0.00015, 0, 0);
+	motor1->myPID.setpid(0.003, 0, 0);
+	motor2->myPID.setpid(0.003, 0, 0);
 	motor3->myPID.setpid(0.00015, 0, 0);
 
 	motor1->velocityPID.setpid(0.1, 0, 0);

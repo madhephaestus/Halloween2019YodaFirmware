@@ -55,7 +55,7 @@ void YodaControl::loop() {
 			(game->values[18] > 0 ? 255 : // Lower button pressed
 					128) //neither pressed
 			, 0, 255, 80, 140);
-	int tiltVal = map(game->values[3], 0, 255, 24, 120); // z button
+	int tiltVal = map(game->values[3], 0, 255, 50, 120); // z button
 	eyepan.write(panVal);
 	eyetilt.write(tiltVal);
 	jaw.write(jawVal);
