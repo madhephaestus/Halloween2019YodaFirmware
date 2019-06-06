@@ -50,12 +50,12 @@ void YodaControl::loop() {
 	}
 	float Servo1Val = mapf((float) game->values[1], 0.0, 255.0, -15.0, 15.0);
 	float Servo3Val = mapf((float) game->values[0], 0.0, 255.0, -60.0, 60.0); // z button
-	int panVal = map(game->values[2], 0, 255, 35, 148);
+	int panVal = map(game->values[2], 0, 255, 55, 128);
 	int jawVal = map(game->values[17] > 0 ? 1 : // Upper button pressed
 			(game->values[18] > 0 ? 255 : // Lower button pressed
 					128) //neither pressed
 			, 0, 255, 80, 140);
-	int tiltVal = map(game->values[3], 0, 255, 50, 120); // z button
+	int tiltVal = map(game->values[3], 0, 255, 70, 100); // z button
 	eyepan.write(panVal);
 	eyetilt.write(tiltVal);
 	jaw.write(jawVal);
